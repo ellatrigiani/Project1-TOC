@@ -24,6 +24,7 @@ from src.sat import SatSolver
 import matplotlib.pyplot as plt
 import numpy as np
 
+#writing my own csv parser, timing where necessary since it is needed for the graph
 def write_results_csv(instances, solver: SatSolver, out_csv: str):
     os.makedirs(os.path.dirname(out_csv) or ".", exist_ok=True)
     nvars_list, times_list, sat_flags = [], [], []
@@ -32,6 +33,7 @@ def write_results_csv(instances, solver: SatSolver, out_csv: str):
         w = csv.writer(f)
         w.writerow(["instance_id","n_vars","n_clauses","method","satisfiable","time_seconds","solution"])
 
+        #timing how long it takes
         for (inst_id, n_vars, clauses) in instances:
             n_clauses = len(clauses)
             t0 = time.perf_counter()
@@ -42,14 +44,17 @@ def write_results_csv(instances, solver: SatSolver, out_csv: str):
             sat_flag = "S" if ok else "U"
             sol_str = str(assign) if ok else "{}"
 
+            #these are the rows
             w.writerow([inst_id, n_vars, n_clauses, method, sat_flag, dt, sol_str])
 
             nvars_list.append(n_vars)
+            #times_list needed for the graph
             times_list.append(dt)
             sat_flags.append(ok)
 
     return nvars_list, times_list, sat_flags
 
+#generating a scatter plot with different variables
 def plot_from_results(nvars_list, times_list, sat_flags, out_png="sat_solver_performance.png"):
     if not nvars_list:
         return
