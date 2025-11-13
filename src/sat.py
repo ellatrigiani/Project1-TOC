@@ -92,7 +92,7 @@ class SatSolver(SatSolverAbstractClass):
 
         return False
 
-    def _formula_satisfied(self, clauses, assignment):
+    def formula_satisfied(self, clauses, assignment):
         #if any clause is unsatisfied then the whole formula is unsatisfied
         for clause in clauses:
             if not self.is_clause_satisfied(clause, assignment):
@@ -105,7 +105,7 @@ class SatSolver(SatSolverAbstractClass):
 
         #base case, if we have assigned all the variables check if formula is satisfied
         if depth > n_vars:
-            return self._formula_satisfied(clauses, assignment)
+            return self.formula_satisfied(clauses, assignment)
 
         #trying different assignments using recursion
         assignment[depth] = 1
