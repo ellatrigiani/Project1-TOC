@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Built this to run on my end to call on the helper functions that allow parsing and outputting resultsfile.csv and a plot
-To use: uv run scripts/local_sat_runner.py input/my_test.cnf results/resultsfile.csv (run in main directory ~$/Project1_TOC)
+To use: uv run scripts/local_sat_runner.py input/my_test.cnf results/resultsfile.csv (run in main directory ~$/Project1_TOC) note i changed the names of these files so now to run them use the files as they are named now
 """
 
 import sys
