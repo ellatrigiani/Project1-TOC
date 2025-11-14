@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Built this to run on my end to call on the helper functions that allow parsing and outputting resultsfile.csv and a plot
-To use: uv run scripts/local_sat_runner.py input/my_test.cnf results/resultsfile.csv (run in main directory ~$/Project1_TOC) note i changed the names of these files so now to run them use the files as they are named now
+To use: uv run scripts/local_sat_runner.py inputs/my_test.cnf results/resultsfile.csv (run in main directory ~$/Project1_TOC) note i changed the names of these files so now to run them use the files as they are named now
 """
 
 import sys
@@ -50,21 +50,11 @@ def write_results_csv(instances, solver: SatSolver, out_csv: str):
             else:
                 sol_str = "{}"
 
-<<<<<<< HEAD
-            #these are the rows
-            w.writerow([inst_id, n_vars, n_clauses, method, sat_flag, dt, sol_str])
-
-            nvars_list.append(n_vars)
-            #times_list needed for the graph
-            times_list.append(dt)
-            sat_flags.append(ok)
-=======
             w.writerow([inst_id, n_vars, n_clauses, method, sat_flag, t_end, sol_str])
 
             nvars_list.append(n_vars)
             times_list.append(t_end)
             sat_flags.append(sat)
->>>>>>> bd3f9d3 (edits)
 
     return nvars_list, times_list, sat_flags
 
@@ -103,16 +93,16 @@ def main():
     if len(sys.argv) < 3:
         sys.exit(1)
 
-    input = sys.argv[1]
+    inputs = sys.argv[1]
     output = sys.argv[2]
 
     #using helper given to us
-    instances = parse_multi_instance_dimacs(input)
+    instances = parse_multi_instance_dimacs(inputs)
     if not instances:
         sys.exit(1)
 
     #using my satsolver brute force function
-    solver = SatSolver(cnf_file_input_path=input, result_file_name="output_trigonometry")
+    solver = SatSolver(cnf_file_input_path=inputs, result_file_name="output_trigonometry")
 
     #outputting the csv in the order necessary, saving variables for the plot
     nvars_list, times_list, sat_flags = write_results_csv(instances, solver, output)
@@ -129,8 +119,7 @@ def main():
     except Exception as e:
         print("Plotting did not work:", e)
 
-    print(f"Results to {outcsv}")
+    print(f"Results to {output}")
 
 if __name__ == "__main__":
     main()
-
